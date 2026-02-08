@@ -4,7 +4,7 @@ A cross-platform statusline for [Claude Code](https://docs.anthropic.com/en/docs
 
 ![macOS](https://img.shields.io/badge/macOS-supported-brightgreen) ![Linux](https://img.shields.io/badge/Linux-supported-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
 
-![claude-statusbar screenshot](screenshot.png)
+![claude-statusbar preview](preview.png)
 
 ## What it shows
 
