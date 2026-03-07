@@ -6,7 +6,7 @@ set -e
 INSTALL_DIR="${HOME}/.claude"
 SCRIPT_PATH="${INSTALL_DIR}/statusline.sh"
 SETTINGS_PATH="${INSTALL_DIR}/settings.json"
-CACHE_FILE="${TMPDIR:-/tmp}/claude_statusbar_cache.json"
+CACHE_FILE="${HOME}/.claude/statusbar_cache.json"
 
 info()  { printf '\033[38;2;166;227;161m%s\033[0m\n' "$1"; }
 warn()  { printf '\033[38;2;249;226;175m%s\033[0m\n' "$1"; }

@@ -20,7 +20,7 @@ curl -fsSL https://raw.githubusercontent.com/useronezero/claude-statusbar/main/u
 
 - Script: `~/.claude/statusline.sh`
 - Settings: `~/.claude/settings.json` (the `statusLine` key)
-- Cache: `${TMPDIR:-/tmp}/claude_statusbar_cache.json`
+- Cache: `~/.claude/statusbar_cache.json`
 
 ## Troubleshooting
 
@@ -29,7 +29,7 @@ If the statusline is blank:
 2. Verify the script exists: `ls -la ~/.claude/statusline.sh`
 3. Test it manually: `echo '{}' | bash ~/.claude/statusline.sh`
 4. Check settings: `cat ~/.claude/settings.json` — should have `statusLine` config
-5. Delete cache to force refresh: `rm ${TMPDIR:-/tmp}/claude_statusbar_cache.json`
+5. Delete cache to force refresh: `rm ~/.claude/statusbar_cache.json`
 
 If usage data is missing but context/model show:
 - The OAuth token may not be resolving. Ensure the user is logged into Claude Code.

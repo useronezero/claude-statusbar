@@ -101,7 +101,7 @@ The installer adds this to `~/.claude/settings.json`:
 - Check that you're logged into Claude Code (the script reads your OAuth token automatically)
 
 **Stale data**
-- Cache is at `${TMPDIR:-/tmp}/claude_statusbar_cache.json` — delete it to force a refresh
+- Cache is at `~/.claude/statusbar_cache.json` — delete it to force a refresh
 
 ## Requirements
 

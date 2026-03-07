@@ -120,8 +120,8 @@ get_oauth_token() {
 }
 
 # ─── Usage API ────────────────────────────────────────────────────────────────
-CACHE_FILE="${TMPDIR:-/tmp}/claude_statusbar_cache.json"
-CACHE_TTL=60
+CACHE_FILE="${HOME}/.claude/statusbar_cache.json"
+CACHE_TTL=300
 
 fetch_usage() {
     local now
@@ -141,7 +141,6 @@ fetch_usage() {
     local token
     token=$(get_oauth_token)
     if [ -z "$token" ] || [ "$token" = "null" ]; then
-        echo "{\"timestamp\":$now,\"session_pct\":-1,\"session_reset\":null,\"weekly_pct\":-1,\"weekly_reset\":null,\"extra_used\":-1,\"extra_limit\":-1}" > "$CACHE_FILE"
         return 1
     fi
 
@@ -151,7 +150,6 @@ fetch_usage() {
         -H "Authorization: Bearer $token" \
         -H "anthropic-beta: oauth-2025-04-20" 2>/dev/null)
     if [ -z "$resp" ] || ! echo "$resp" | jq -e '.five_hour' >/dev/null 2>&1; then
-        echo "{\"timestamp\":$now,\"session_pct\":-1,\"session_reset\":null,\"weekly_pct\":-1,\"weekly_reset\":null,\"extra_used\":-1,\"extra_limit\":-1}" > "$CACHE_FILE"
         return 1
     fi
 
