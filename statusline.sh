@@ -141,6 +141,12 @@ fetch_usage() {
     local token
     token=$(get_oauth_token)
     if [ -z "$token" ] || [ "$token" = "null" ]; then
+        # Update timestamp to avoid retrying every call, but keep existing data
+        if [ -f "$CACHE_FILE" ]; then
+            jq --argjson ts "$now" '.timestamp = $ts' "$CACHE_FILE" > "${CACHE_FILE}.tmp" && mv "${CACHE_FILE}.tmp" "$CACHE_FILE"
+        else
+            echo "{\"timestamp\":$now}" > "$CACHE_FILE"
+        fi
         return 1
     fi
 
@@ -150,6 +156,12 @@ fetch_usage() {
         -H "Authorization: Bearer $token" \
         -H "anthropic-beta: oauth-2025-04-20" 2>/dev/null)
     if [ -z "$resp" ] || ! echo "$resp" | jq -e '.five_hour' >/dev/null 2>&1; then
+        # Update timestamp to avoid retrying every call, but keep existing data
+        if [ -f "$CACHE_FILE" ]; then
+            jq --argjson ts "$now" '.timestamp = $ts' "$CACHE_FILE" > "${CACHE_FILE}.tmp" && mv "${CACHE_FILE}.tmp" "$CACHE_FILE"
+        else
+            echo "{\"timestamp\":$now}" > "$CACHE_FILE"
+        fi
         return 1
     fi
 
