@@ -37,8 +37,8 @@ make_bar() {
     fi
 
     local bar_filled="" bar_empty=""
-    for ((i=0; i<filled; i++)); do bar_filled="${bar_filled}─"; done
-    for ((i=0; i<empty; i++)); do bar_empty="${bar_empty}─"; done
+    for ((i=0; i<filled; i++)); do bar_filled="${bar_filled}●"; done
+    for ((i=0; i<empty; i++)); do bar_empty="${bar_empty}○"; done
 
     printf "${color}${bar_filled}${DIM}${bar_empty}${R}"
 }
@@ -232,11 +232,12 @@ if [ -n "$cwd" ] && git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
     [ -n "$branch" ] && out="${out}${SEP}${LAVENDER} ${branch}${R}"
 fi
 
-# 3. Context window remaining
+# 3. Context window usage
 ctx=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
 if [ -n "$ctx" ]; then
+    ctx_used=$((100 - ctx))
     ctx_bar=$(make_bar "$ctx")
-    out="${out}${SEP}Context ${ctx_bar} ${ctx}%"
+    out="${out}${SEP}Context ${ctx_bar} ${ctx_used}%"
 fi
 
 # 4. Session (5-hour) + reset countdown
